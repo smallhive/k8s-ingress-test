@@ -28,20 +28,3 @@ spec:
               value: '7001'
           securityContext:
             privileged: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: lb-ingress-test-service
-  labels:
-    service: event-ingress-test-service
-    role: app
-spec:
-  type: LoadBalancer
-  selector:
-    service: ingress-test-service
-    role: app
-  ports:
-  - port: 8080
-    targetPort: 8080
-    protocol: TCP

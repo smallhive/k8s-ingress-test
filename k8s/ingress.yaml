@@ -3,9 +3,15 @@ kind: Ingress
 metadata:
   name: ingress-test
   annotations:
-    #ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_input_headers 'Host12: $http_x_upstream_host';
+      proxy_set_header Host www.example-host.com;
+      more_set_headers "Request-Id: $req_id";
+    nginx.ingress.kubernetes.io/location-snippets: |
+                  add_header my-test-header test-value;
 spec:
   ingressClassName: nginx
   rules:
@@ -19,4 +25,3 @@ spec:
                 port:
                   number: 8080
       host: "*.test.com"
-
