@@ -8,8 +8,7 @@ metadata:
     service: event-ingress-test-service
     role: app
 spec:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     service: ingress-test-service
     role: app
